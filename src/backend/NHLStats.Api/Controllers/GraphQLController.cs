@@ -33,7 +33,7 @@ namespace NHLStats.Api.Controllers
                 Inputs = inputs
             };
 
-            var result = await _documentExecuter.ExecuteAsync(executionOptions).ConfigureAwait(false);
+            var result = await _documentExecuter.ExecuteAsync(executionOptions);
 
             if (result.Errors?.Count > 0)
             {

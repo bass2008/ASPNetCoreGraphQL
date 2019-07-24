@@ -6,7 +6,6 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using NHLStats.Api.Helpers;
 using NHLStats.Api.Models;
 using NHLStats.Core.Data;
 using NHLStats.Data;
@@ -30,7 +29,6 @@ namespace NHLStats.Api
             services.AddMvc();
            
             services.AddHttpContextAccessor();
-            services.AddSingleton<ContextServiceLocator>();
             services.AddDbContext<NHLStatsContext>(options => options.UseSqlServer(Configuration["ConnectionStrings:NHLStatsDb"]));
             services.AddTransient<IPlayerRepository, PlayerRepository>();
             services.AddTransient<ISkaterStatisticRepository, SkaterStatisticRepository>();

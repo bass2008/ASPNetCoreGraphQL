@@ -1,6 +1,4 @@
-﻿
-using GraphQL.Types;
-using NHLStats.Api.Helpers;
+﻿using GraphQL.Types;
 using NHLStats.Core.Data;
 using NHLStats.Core.Models;
 
@@ -8,7 +6,7 @@ namespace NHLStats.Api.Models
 {
     public class PlayerType : ObjectGraphType<Player>
     {
-        public PlayerType(ContextServiceLocator contextServiceLocator)
+        public PlayerType(ISkaterStatisticRepository skaterStatisticRepository)
         {
             Field(x => x.Id);
             Field(x => x.Name, true);
@@ -18,7 +16,7 @@ namespace NHLStats.Api.Models
             Field<StringGraphType>("birthDate", resolve: context => context.Source.BirthDate.ToShortDateString());
             Field<ListGraphType<SkaterStatisticType>>("skaterSeasonStats",
                 arguments: new QueryArguments(new QueryArgument<IntGraphType> { Name = "id" }),
-                resolve: context => contextServiceLocator.SkaterStatisticRepository.Get(context.Source.Id), description: "Player's skater stats");
+                resolve: context => skaterStatisticRepository.Get(context.Source.Id), description: "Player's skater stats");
         }
     }
 }
